@@ -3,6 +3,9 @@ from statistics import mean, median, mode
 from numpy import var
 import numpy as np
 from scipy.stats import kurtosis, skew
+import plotly.graph_objects as go
+import plotly.express as px
+import pandas as pd
 class DashBoard:
     def __init__(self, NombreDelEncuestador) -> None:
         self.Dict = DictCreator.DictCreator().dict
@@ -82,7 +85,21 @@ class DashBoard:
     def amplitud(self, vectorAlRealizar):
         return round(self.rango(vectorAlRealizar)/self.nClase(vectorAlRealizar))
     
-    
-dashboard = DashBoard('Jorge Bolivar')
-print(dashboard.frecuenciaRelativaAcumuladaPorcentual)
+class Graphics:
+    def __init__(self) -> None:
+        self.Jorge = DashBoard('Jorge Bolivar')
+        self.histograma(self.Jorge, self.Jorge.limites, self.Jorge.frecuenciaAgrupada)
+    def histograma(self, dashboard:DashBoard, vector1, vector2):
+        for i in range(len(vector1)):
+            vector1[i] = str(vector1[i][0]) + '-' + str(vector1[i][1])
+        datos = {
+            "vector1": vector1,
+            "vector2": vector2
+        }
+        
+        df = pd.DataFrame(datos)
+        fig = px.bar(df, x="vector1", y="vector2")
+        fig.show()
+
+graphic = Graphics()
 
