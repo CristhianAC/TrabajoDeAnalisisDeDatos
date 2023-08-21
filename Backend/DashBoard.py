@@ -11,12 +11,12 @@ class DashBoard:
         self.posiciones = [i for i in range(len(self.Dict['Nombre del encuestador:'])) if self.Dict['Nombre del encuestador:'][i] == self.NombreDelEncuestador]
         self.vectorDePuntuaciones = [self.Dict['Puntuación'][i] for i in self.posiciones]
         self.vectorDePuntuaciones.sort()
-        self.casillasClases = [i for i in range(1,round(self.nClase()))]
+        self.casillasClases = [i for i in range(1,round(self.nClase(self.vectorDePuntuaciones)))]
         self.limiteInf = min(self.vectorDePuntuaciones)
-        self.limiteSup = self.limiteInf + self.amplitud()-1
+        self.limiteSup = self.limiteInf + self.amplitud(self.vectorDePuntuaciones)-1
         self.limites = [[self.limiteInf, self.limiteSup]]
         for i in range (len(self.casillasClases)):
-            self.limites.append([(self.limites[len(self.limites)-1][0]+self.amplitud()) if i % 2 == 0 else self.limites[len(self.limites)-1][1]+self.amplitud() for i in range (2)])
+            self.limites.append([(self.limites[len(self.limites)-1][0]+self.amplitud(self.vectorDePuntuaciones)) if i % 2 == 0 else self.limites[len(self.limites)-1][1]+self.amplitud(self.vectorDePuntuaciones) for i in range (2)])
         self.frecuenciaAgrupada = [0 for i in range(len(self.limites))]
         for i in range(len(self.vectorDePuntuaciones)):
             for j in range(len(self.limites)):
@@ -29,59 +29,58 @@ class DashBoard:
         self.fronteraSuperior = [self.limites[i][1]+(self.precision/2) for i in range(len(self.limites))]
         self.marcasDeClase = [(self.fronteraInferior[i]+self.fronteraSuperior[i])/2 for i in range(len(self.fronteraInferior))]
         self.marcaDeClasePorFrecuencia = [self.marcasDeClase[i]*self.frecuenciaAgrupada[i] for i in range(len(self.marcasDeClase))]
-        self.fimixbarra2 = [self.frecuenciaAgrupada[i]*(self.marcasDeClase[i]-self.media())**2 for i in range(len(self.marcasDeClase))]
+        self.fimixbarra2 = [self.frecuenciaAgrupada[i]*(self.marcasDeClase[i]-self.media(self.frecuenciaAgrupada))**2 for i in range(len(self.marcasDeClase))]
         
         
-    def media(self):
-        return sum(self.vectorDePuntuaciones)/len(self.vectorDePuntuaciones)
+    def media(self, vectorAlRealizar):
+        return sum(vectorAlRealizar)/len(vectorAlRealizar)
     
-    def mediana(self):
-        vectorDePuntuaciones= self.vectorDePuntuaciones.copy().sort()
-        if len(vectorDePuntuaciones)%2 == 0:
-            return (vectorDePuntuaciones[len(vectorDePuntuaciones)//2] + vectorDePuntuaciones[len(vectorDePuntuaciones)//2 - 1])/2
+    def mediana(self, vectorAlRealizar):
+        
+        if len(vectorAlRealizar)%2 == 0:
+            return (vectorAlRealizar[len(vectorAlRealizar)//2] + vectorAlRealizar[len(vectorAlRealizar)//2 - 1])/2
         else:
-            return vectorDePuntuaciones[len(vectorDePuntuaciones)//2]
+            return vectorAlRealizar[len(vectorAlRealizar)//2]
         
         
-    def moda(self):
-        return mode(self.vectorDePuntuaciones)
+    def moda(self, vectorAlRealizar):
+        return mode(vectorAlRealizar)
     
     
-    def rango(self):
-        return max(self.vectorDePuntuaciones) - min(self.vectorDePuntuaciones)
+    def rango(self, vectorAlRealizar):
+        return max(vectorAlRealizar) - min(vectorAlRealizar)
     
     
-    def rangoIntercuartilico(self):
-        vectorDePuntuaciones= self.vectorDePuntuaciones.copy().sort()
-        quartiles = [vectorDePuntuaciones[len(vectorDePuntuaciones)//4], vectorDePuntuaciones[len(vectorDePuntuaciones)//2], vectorDePuntuaciones[len(vectorDePuntuaciones)*3//4]]
+    def rangoIntercuartilico(self, vectorAlRealizar):
+        quartiles = [vectorAlRealizar[len(vectorAlRealizar)//4], vectorAlRealizar[len(vectorAlRealizar)//2], vectorAlRealizar[len(vectorAlRealizar)*3//4]]
         return quartiles[len(quartiles)-1] - quartiles[0]
     
     
-    def varianza(self):
-        return var(self.vectorDePuntuaciones)
+    def varianza(self, vectorAlRealizar):
+        return var(vectorAlRealizar)
     
     
-    def desviacionEstandar(self):
-        return np.std(self.vectorDePuntuaciones)
+    def desviacionEstandar(self, vectorAlRealizar):
+        return np.std(vectorAlRealizar)
     
     
-    def coefDeVariacion(self):
-        variacion = self.desviacionEstandar(self.NombreDelEncuestador)/self.media(self.NombreDelEncuestador)     
+    def coefDeVariacion(self , vectorAlRealizar):
+        variacion = self.desviacionEstandar(vectorAlRealizar)/self.media(vectorAlRealizar)     
         return variacion
     
     
-    def coefDeAsimetria(self):
-        return skew(self.vectorDePuntuaciones)
+    def coefDeAsimetria(self, vectorAlRealizar):
+        return skew(vectorAlRealizar)
     
     
-    def coefDeApuntamiento(self):
-        return kurtosis(self.vectorDePuntuaciones)
+    def coefDeApuntamiento(self, vectorAlRealizar):
+        return kurtosis(vectorAlRealizar)
     
-    def nClase(self):
-        return 3.3*np.log10(len(self.vectorDePuntuaciones)) + 1
+    def nClase(self, vectorAlRealizar):
+        return 3.3*np.log10(len(vectorAlRealizar)) + 1
     
-    def amplitud(self):
-        return round(self.rango()/self.nClase())
+    def amplitud(self, vectorAlRealizar):
+        return round(self.rango(vectorAlRealizar)/self.nClase(vectorAlRealizar))
     
     
 dashboard = DashBoard('Jorge Bolivar')
