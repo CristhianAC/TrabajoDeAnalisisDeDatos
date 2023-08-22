@@ -49,6 +49,8 @@ class DashBoard:
     def moda(self, vectorAlRealizar):
         return mode(vectorAlRealizar)
     
+    def modaAgrup(self, vectorAlRealizar):
+        return self.limiteInf + ((self.frecuenciaAgrupada[1]-self.frecuenciaAgrupada[0])/(2*self.frecuenciaAgrupada[1]-self.frecuenciaAgrupada[0]-self.frecuenciaAgrupada[2]))*self.amplitud(self.vectorDePuntuaciones)
     
     def rango(self, vectorAlRealizar):
         return max(vectorAlRealizar) - min(vectorAlRealizar)
@@ -96,15 +98,15 @@ class Graphics:
         for i in range(len(vector1)):
             vector1[i] = str(vector1[i][0]) + '-' + str(vector1[i][1])
         datos = {
-            "vector1": vector1,
-            "vector2": vector2
+            "Agrupacion": vector1,
+            "Frecuencias": vector2
         }
         
         df = pd.DataFrame(datos)
-        fig = px.bar(df, x="vector1", y="vector2")
+        fig = px.bar(df, y="Frecuencias", category_orders={"Agrupacion":vector1}, x="Agrupacion", color="Agrupacion", color_discrete_sequence=px.colors.qualitative.Plotly)
         fig.show()
 
-#graphic = Graphics()
+graphic = Graphics()
 
 
 dashboard = DashBoard('Cristhian Agamez')
