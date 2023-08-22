@@ -85,6 +85,9 @@ class DashBoard:
     def amplitud(self, vectorAlRealizar):
         return round(self.rango(vectorAlRealizar)/self.nClase(vectorAlRealizar))
     
+    def modaAgrup(self,vectorAlRealizar):
+        return  self.limiteInf + (self.frecuenciaRelativaAcumulada)
+    
 class Graphics:
     def __init__(self) -> None:
         self.Jorge = DashBoard('Jorge Bolivar')
@@ -101,5 +104,42 @@ class Graphics:
         fig = px.bar(df, x="vector1", y="vector2")
         fig.show()
 
-graphic = Graphics()
+#graphic = Graphics()
+
+
+dashboard = DashBoard('Cristhian Agamez')
+print("Medidas de Centralización")
+print(dashboard.media(dashboard.vectorDePuntuaciones))
+print(dashboard.mediana(dashboard.vectorDePuntuaciones))
+print(dashboard.moda(dashboard.vectorDePuntuaciones))
+print("\n ")
+print("Medidas de variabilidad o dispersión")
+print(dashboard.rango(dashboard.vectorDePuntuaciones))
+print(dashboard.rangoIntercuartilico(dashboard.vectorDePuntuaciones))
+print(dashboard.varianza(dashboard.vectorDePuntuaciones))
+print(dashboard.desviacionEstandar(dashboard.vectorDePuntuaciones))
+print(dashboard.coefDeVariacion(dashboard.vectorDePuntuaciones))
+print("\n ")
+print("Medidas de forma")
+print(dashboard.coefDeAsimetria(dashboard.vectorDePuntuaciones))
+print(dashboard.coefDeApuntamiento(dashboard.vectorDePuntuaciones))
+print("\n ")
+print("\n ")
+
+
+
+print("Datos no agrupados")
+print(dashboard.frecuenciaAgrupada)
+print(dashboard.media(dashboard.frecuenciaAgrupada))
+print(dashboard.mediana(dashboard.vectorDePuntuaciones))
+print(dashboard.moda(dashboard.frecuenciaAgrupada))
+print(dashboard.rango(dashboard.frecuenciaAgrupada))
+print(dashboard.rangoIntercuartilico(dashboard.frecuenciaAgrupada))
+print(dashboard.varianza(dashboard.fimixbarra2))
+print(dashboard.desviacionEstandar(dashboard.fimixbarra2))
+print(dashboard.coefDeVariacion(dashboard.fimixbarra2))
+print("\n ")
+
+
+#print(dashboard.frecuenciaRelativaAcumuladaPorcentual)
 
