@@ -37,7 +37,8 @@ class DashBoard:
         
     def media(self, vectorAlRealizar):
         return sum(vectorAlRealizar)/len(vectorAlRealizar)
-    
+    def mediaAgrup(self):
+        return sum([(self.marcasDeClase[i]*self.frecuenciaAgrupada[i]) for i in range(len(self.marcasDeClase))])/sum(self.frecuenciaAgrupada)
     def mediana(self, vectorAlRealizar):
         
         if len(vectorAlRealizar)%2 == 0:
@@ -55,11 +56,7 @@ class DashBoard:
         mo = []
         
         for i in range(len(fi)):
-            print(self.limites[fi[i]][0])
-            print(self.frecuenciaAgrupada[fi[i]])
-            print(self.frecuenciaAgrupada[fi[i]-1])
-            print(self.frecuenciaAgrupada[fi[i]+1])
-            print(self.amplitudModa(self.vectorDePuntuaciones))
+            
             temporal = self.limites[fi[i]][0] + ((self.frecuenciaAgrupada[fi[i]] - self.frecuenciaAgrupada[fi[i]-1])/((self.frecuenciaAgrupada[fi[i]]-self.frecuenciaAgrupada[fi[i]-1]) + (self.frecuenciaAgrupada[fi[i]]-self.frecuenciaAgrupada[fi[i]+1])))*self.amplitudModa(self.vectorDePuntuaciones)
             
             mo.append(temporal)
@@ -75,16 +72,16 @@ class DashBoard:
         return quartiles[len(quartiles)-1] - quartiles[0]
     
     
-    def varianza(self, vectorAlRealizar):
-        return var(vectorAlRealizar)
+    def varianza(self):
+        return sum(self.fimixbarra2)/(sum(self.frecuenciaAgrupada)-1) 
     
     
-    def desviacionEstandar(self, vectorAlRealizar):
-        return np.std(vectorAlRealizar)
+    def desviacionEstandar(self):
+        return self.varianza()**(1/2)  
     
     
-    def coefDeVariacion(self , vectorAlRealizar):
-        variacion = self.desviacionEstandar(vectorAlRealizar)/self.media(vectorAlRealizar)     
+    def coefDeVariacion(self):
+        variacion = self.desviacionEstandar()/self.mediaAgrup()     
         return variacion
     
     
@@ -109,6 +106,7 @@ class DashBoard:
 
 
 dashboard = DashBoard('Cristhian Agamez')
+
 print("Medidas de Centralización")
 print(dashboard.media(dashboard.vectorDePuntuaciones))
 print(dashboard.mediana(dashboard.vectorDePuntuaciones))
@@ -118,9 +116,9 @@ print("\n ")
 print("Medidas de variabilidad o dispersión")
 print(dashboard.rango(dashboard.vectorDePuntuaciones))
 print(dashboard.rangoIntercuartilico(dashboard.vectorDePuntuaciones))
-print(dashboard.varianza(dashboard.vectorDePuntuaciones))
-print(dashboard.desviacionEstandar(dashboard.vectorDePuntuaciones))
-print(dashboard.coefDeVariacion(dashboard.vectorDePuntuaciones))
+print(dashboard.varianza())
+print(dashboard.desviacionEstandar())
+print(dashboard.coefDeVariacion())
 print("\n ")
 print("Medidas de forma")
 print(dashboard.coefDeAsimetria(dashboard.vectorDePuntuaciones))
@@ -138,12 +136,13 @@ print(dashboard.mediana(dashboard.vectorDePuntuaciones))
 print(dashboard.moda(dashboard.frecuenciaAgrupada))
 print(dashboard.rango(dashboard.frecuenciaAgrupada))
 print(dashboard.rangoIntercuartilico(dashboard.frecuenciaAgrupada))
-print(dashboard.varianza(dashboard.fimixbarra2))
-print(dashboard.desviacionEstandar(dashboard.fimixbarra2))
-print(dashboard.coefDeVariacion(dashboard.fimixbarra2))
+print(dashboard.varianza())
+print(dashboard.desviacionEstandar())
+print(dashboard.coefDeVariacion())
 print("\n ")
 
 print(dashboard.modaAgrup())
+
 
 #print(dashboard.frecuenciaRelativaAcumuladaPorcentual)
 
