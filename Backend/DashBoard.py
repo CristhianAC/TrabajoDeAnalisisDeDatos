@@ -49,8 +49,22 @@ class DashBoard:
     def moda(self, vectorAlRealizar):
         return mode(vectorAlRealizar)
     
-    def modaAgrup(self, vectorAlRealizar):
-        return self.limiteInf + ((self.frecuenciaAgrupada[1]-self.frecuenciaAgrupada[0])/(2*self.frecuenciaAgrupada[1]-self.frecuenciaAgrupada[0]-self.frecuenciaAgrupada[2]))*self.amplitud(self.vectorDePuntuaciones)
+    def modaAgrup(self):
+        value_to_search = max(self.frecuenciaAgrupada)
+        fi = [indice for indice, dato in enumerate(self.frecuenciaAgrupada) if dato == value_to_search]
+        mo = []
+        
+        for i in range(len(fi)):
+            print(self.limites[fi[i]][0])
+            print(self.frecuenciaAgrupada[fi[i]])
+            print(self.frecuenciaAgrupada[fi[i]-1])
+            print(self.frecuenciaAgrupada[fi[i]+1])
+            print(self.amplitudModa(self.vectorDePuntuaciones))
+            temporal = self.limites[fi[i]][0] + ((self.frecuenciaAgrupada[fi[i]] - self.frecuenciaAgrupada[fi[i]-1])/((self.frecuenciaAgrupada[fi[i]]-self.frecuenciaAgrupada[fi[i]-1]) + (self.frecuenciaAgrupada[fi[i]]-self.frecuenciaAgrupada[fi[i]+1])))*self.amplitudModa(self.vectorDePuntuaciones)
+            
+            mo.append(temporal)
+        
+        return mo 
     
     def rango(self, vectorAlRealizar):
         return max(vectorAlRealizar) - min(vectorAlRealizar)
@@ -86,27 +100,12 @@ class DashBoard:
     
     def amplitud(self, vectorAlRealizar):
         return round(self.rango(vectorAlRealizar)/self.nClase(vectorAlRealizar))
+    def amplitudModa(self, vectorAlRealizar):
+        return self.rango(vectorAlRealizar)/self.nClase(vectorAlRealizar) 
     
-    def modaAgrup(self,vectorAlRealizar):
-        return  self.limiteInf + (self.frecuenciaRelativaAcumulada)
-    
-class Graphics:
-    def __init__(self) -> None:
-        self.Jorge = DashBoard('Jorge Bolivar')
-        self.histograma(self.Jorge, self.Jorge.limites, self.Jorge.frecuenciaAgrupada)
-    def histograma(self, dashboard:DashBoard, vector1, vector2):
-        for i in range(len(vector1)):
-            vector1[i] = str(vector1[i][0]) + '-' + str(vector1[i][1])
-        datos = {
-            "Agrupacion": vector1,
-            "Frecuencias": vector2
-        }
-        
-        df = pd.DataFrame(datos)
-        fig = px.bar(df, y="Frecuencias", category_orders={"Agrupacion":vector1}, x="Agrupacion", color="Agrupacion", color_discrete_sequence=px.colors.qualitative.Plotly)
-        fig.show()
 
-graphic = Graphics()
+
+
 
 
 dashboard = DashBoard('Cristhian Agamez')
@@ -114,6 +113,7 @@ print("Medidas de Centralización")
 print(dashboard.media(dashboard.vectorDePuntuaciones))
 print(dashboard.mediana(dashboard.vectorDePuntuaciones))
 print(dashboard.moda(dashboard.vectorDePuntuaciones))
+print(dashboard.amplitudModa(dashboard.vectorDePuntuaciones))
 print("\n ")
 print("Medidas de variabilidad o dispersión")
 print(dashboard.rango(dashboard.vectorDePuntuaciones))
@@ -131,6 +131,7 @@ print("\n ")
 
 
 print("Datos no agrupados")
+print(dashboard.limites)
 print(dashboard.frecuenciaAgrupada)
 print(dashboard.media(dashboard.frecuenciaAgrupada))
 print(dashboard.mediana(dashboard.vectorDePuntuaciones))
@@ -142,6 +143,7 @@ print(dashboard.desviacionEstandar(dashboard.fimixbarra2))
 print(dashboard.coefDeVariacion(dashboard.fimixbarra2))
 print("\n ")
 
+print(dashboard.modaAgrup())
 
 #print(dashboard.frecuenciaRelativaAcumuladaPorcentual)
 
