@@ -105,13 +105,13 @@ class DashBoard:
 
 
 
-dashboard = DashBoard('Cristhian Agamez')
-
+dashboard = DashBoard('Jorge Bolivar')
+print("Datos NO agrupados")
 print("Medidas de Centralización")
 print(dashboard.media(dashboard.vectorDePuntuaciones))
 print(dashboard.mediana(dashboard.vectorDePuntuaciones))
 print(dashboard.moda(dashboard.vectorDePuntuaciones))
-print(dashboard.amplitudModa(dashboard.vectorDePuntuaciones))
+#print(dashboard.amplitudModa(dashboard.vectorDePuntuaciones))
 print("\n ")
 print("Medidas de variabilidad o dispersión")
 print(dashboard.rango(dashboard.vectorDePuntuaciones))
@@ -128,20 +128,20 @@ print("\n ")
 
 
 
-print("Datos no agrupados")
+print("Datos agrupados")
 print(dashboard.limites)
 print(dashboard.frecuenciaAgrupada)
 print(dashboard.media(dashboard.frecuenciaAgrupada))
 print(dashboard.mediana(dashboard.vectorDePuntuaciones))
-print(dashboard.moda(dashboard.frecuenciaAgrupada))
+print(dashboard.modaAgrup())
 print(dashboard.rango(dashboard.frecuenciaAgrupada))
 print(dashboard.rangoIntercuartilico(dashboard.frecuenciaAgrupada))
-print(dashboard.varianza())
+print(var(dashboard.vectorDePuntuaciones))
 print(dashboard.desviacionEstandar())
 print(dashboard.coefDeVariacion())
 print("\n ")
 
-print(dashboard.modaAgrup())
+
 
 
 #print(dashboard.frecuenciaRelativaAcumuladaPorcentual)
