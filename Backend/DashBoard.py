@@ -71,19 +71,26 @@ class DashBoard:
         quartiles = [vectorAlRealizar[len(vectorAlRealizar)//4], vectorAlRealizar[len(vectorAlRealizar)//2], vectorAlRealizar[len(vectorAlRealizar)*3//4]]
         return quartiles[len(quartiles)-1] - quartiles[0]
     
-    
     def varianza(self):
+        return var(self.vectorDePuntuaciones)
+    
+    def varianzaAgrup(self):
         return sum(self.fimixbarra2)/(sum(self.frecuenciaAgrupada)-1) 
     
     
-    def desviacionEstandar(self):
+    def desviacionEstandarAgrup(self):
         return self.varianza()**(1/2)  
     
+    def desviacionEstandar(self):
+        return var(self.vectorDePuntuaciones)**(1/2)
     
-    def coefDeVariacion(self):
+    def coefDeVariacionAgrup(self):
         variacion = self.desviacionEstandar()/self.mediaAgrup()     
         return variacion
     
+    def coefDeVariacion(self):
+        variacion = self.desviacionEstandar()/self.media(self.vectorDePuntuaciones)     
+        return variacion
     
     def coefDeAsimetria(self, vectorAlRealizar):
         return skew(vectorAlRealizar)
