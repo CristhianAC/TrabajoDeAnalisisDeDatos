@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="es">
     <head>
         <meta charset="UST-8">
@@ -8,20 +9,20 @@
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@200;300;400;500&display=swap" rel="stylesheet">
-        <link rel="stylesheet" href="css/estilos.css">
+        <link rel="stylesheet" href="{% static 'css/estilos.css' %}">
     </head> 
     <body>
         <header class="hero">
             <div class="textos-hero">
                 <h1>Análisis de datos sobre la Educación Sexual</h1>
                 <p>Creamos el mejor sitio web para ti</p>
-                <a href="dashboard.html" >Dashboard</a>
+                <a href="DashBoard" >Dashboard</a>
             </div>
             <div class="svg-hero" style="height: 150px; overflow: hidden;" ><svg viewBox="0 0 500 150" preserveAspectRatio="none" style="height: 100%; width: 100%;"><path d="M-0.00,49.85 C149.66,150.09 349.20,-49.85 500.00,49.85 L628.22,245.56 L-27.53,228.83 Z" style="stroke: none; fill: #fff;"></path></svg></div>
         </header>
 
         <section class="wave-contenedor website">
-            <img src="img/section1.png" alt="">
+            <img src="{% static 'img/section1.png' %}" alt="">
             <div class="contenedor-textos-main">
                 <h2 class="titulo left">¿Qué es la eduación sexual?</h2>
                 <p class="parrafo">La educación en sexualidad implica un proceso educativo de excelencia que abarca diversos temas ligados a la salud reproductiva y la sexualidad. Durante este proceso se analizan los valores y convicciones asociados a estos tópicos. Simultáneamente, este tipo de educación capacita a las personas con las habilidades fundamentales para gestionar sus vínculos personales, relaciones de pareja, entorno social y su bienestar sexual.</p>
@@ -64,12 +65,12 @@
             <div class="contenedor">
                 <h2 class="titulo">Our work</h2>
                 <article class="galeria-cont">
-                    <img src="img/uno.jpeg" alt="">
-                    <img src="img/dos.jpeg" alt="">
-                    <img src="img/tres.jpeg" alt="">
-                    <img src="img/cuatro.jpeg" alt="">
-                    <img src="img/cinco.jpeg" alt="">
-                    <img src="img/seis.jpeg" alt="">
+                    <img src="{% static 'img/uno.jpeg' %}" alt="">
+                    <img src="{% static 'img/dos.jpeg' %}" alt="">
+                    <img src="{% static 'img/tres.jpeg' %}" alt="">
+                    <img src="{% static 'img/cuatro.jpeg' %}" alt="">
+                    <img src="{% static 'img/cinco.jpeg' %}" alt="">
+                    <img src="{% static 'img/seis.jpeg' %}" alt="">
                 </article>
             </div>   
         </section>
@@ -81,7 +82,7 @@
                     <p class="parrafo">La educación sexual proporciona a las personas los conocimientos y destrezas requeridos para realizar elecciones saludables acerca de su sexualidad y bienestar reproductivo.</p>
                     <a href="https://www.plannedparenthood.org/es/temas-de-salud/para-educadores/que-es-la-educacion-sexual#:~:text=La%20educación%20sexual%20es%20un,creencias%20relacionados%20con%20estos%20temas." class="cta">Learn more</a>
                 </div>
-                <img src="img/toys.jpg" alt="">
+                <img src="{% static 'img/toys.jpg' %}" alt="">
             </div>
 
             <div class="svg-wave" style="height: 150px; overflow: hidden;" ><svg viewBox="0 0 500 150" preserveAspectRatio="none" style="height: 100%; width: 100%;"><path d="M-0.00,49.85 C149.66,150.09 349.20,-49.85 500.00,49.85 L628.22,245.56 L-27.53,228.83 Z" style="stroke: none; fill: #f5576c;"></path></svg></div>

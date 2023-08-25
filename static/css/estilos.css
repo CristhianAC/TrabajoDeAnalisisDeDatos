@@ -40,7 +40,63 @@ body{
     justify-content: center;
     align-items: center;
 }
-
+h1{
+    font-size: 80px;
+    padding: 40px;
+    background-color: #8765d8a2;
+    border-radius: 24px;
+}
+.integrante{
+    background-color: #a18cd1a2;
+    border-radius: 24px;
+    border: 4px solid #ffffff;
+    border-radius: 15px;
+    margin-top: 45px;
+}
+h2{
+    
+    font-size: 40px;
+    font-weight: bolder;
+    margin: 20px;
+    text-align: center;
+    padding: 40px;
+    padding-top: 80px;
+}
+.Tablas{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+}
+.Graficas{
+    display: grid;
+    
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+}
+.item{
+    
+    height: 1%;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+}
+.container{
+    
+    background-color: rgba(251, 194, 235, 0.842);
+    border-radius: 15px;
+    box-shadow: 5px 5px 10px;
+    color: rgb(0, 0, 0);
+    max-width: 1500px;
+    padding: 40px;
+    margin: 20px auto;
+    justify-content: center;
+    width: 90%;
+    font-weight: bolder;
+    font-size: 20px;
+}
+.org{
+    text-align: center;
+    
+}
 .textos-hero hq{
     font-size: 60px;
 }

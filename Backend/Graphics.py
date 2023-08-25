@@ -1,4 +1,4 @@
-from DashBoard import DashBoard
+from .DashBoard import DashBoard
 import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
@@ -18,15 +18,17 @@ class Graphics:
         }
         self.histo = self.histograma(datos)
         self.poligoFre = self.poligonoDeFrecuencia(datos)
-        self.Ojiva = self.Ojiva()
+        self.ojiva = self.Ojiva()
         self.boxP = self.boxPlot()
         self.boxA = self.boxPlotAgrupado()
         self.tabla = self.tablaFrecuenciaAgrupada()
+        
     def histograma(self, datos):
         
         
         df = pd.DataFrame(datos)
         fig = px.bar(df, y="Frecuencias", category_orders={"Agrupacion":self.vector1}, x="Agrupacion", color="Agrupacion", color_discrete_sequence=px.colors.qualitative.Plotly)
+        fig.update_layout(paper_bgcolor="rgba(0,0,0,0)")
         return fig.to_html()
         
         
@@ -47,48 +49,63 @@ class Graphics:
         return fig.to_html()
     def Ojiva(self):
         
-        fig = px.line(x=self.vector1, y=self.dashboard.frecuenciaAgrupadaAcumulada,markers=True)
+        fig = px.line(x=self.vector1, y=self.dashboard.frecuenciaAgrupadaAcumulada,markers=True, title="Ojiva")
         fig.update_layout(paper_bgcolor="rgba(0,0,0,0)", 
                             font=dict(
                                         family="Courier New, monospace",
                                         size=18,
-                                        color="White"
+                                        
                                 ))
         return fig.to_html()
         
     def boxPlot(self):
-        fig = px.box(self.dashboard.vectorDePuntuaciones)
+        fig = px.box(x=self.dashboard.vectorDePuntuaciones, title="Caja y Bigote base")
         fig.update_layout(paper_bgcolor="rgba(0,0,0,0)", 
                             font=dict(
                                         family="Courier New, monospace",
                                         size=18,
-                                        color="White"
+                                        
                                 ))
         return fig.to_html()
         
     def boxPlotAgrupado(self):
-        fig = px.box(self.dashboard.frecuenciaAgrupada)
+        fig = px.box(x=self.dashboard.frecuenciaAgrupada, title="Box Plot Agrupado")
         fig.update_layout(paper_bgcolor="rgba(0,0,0,0)", 
                             font=dict(
                                         family="Courier New, monospace",
                                         size=18,
-                                        color="White"
+                                        
                                 ))
         return fig.to_html()
             
     def tablaFrecuenciaAgrupada(self):
-        fig = go.Figure(data=[go.Table(header=dict(values=['Intervalos', 'Frecuencias']),
-                 cells=dict(values=[self.vector1, self.vector2]))
+        fig = go.Figure(data=[go.Table(header=dict(values=['Intervalos', 'Frecuencias', 'Frecuencia Relativa', 'Frecuencia Relativa Acumulada', 'Frecuencia Relativa Acumulada Porcentual']),
+                 cells=dict(values=[self.vector1, self.vector2, self.dashboard.frecuenciaRelativa, self.dashboard.frecuenciaRelativaAcumulada, self.dashboard.frecuenciaRelativaAcumuladaPorcentual]))
                      ])
+        fig.update_layout(paper_bgcolor="rgba(0,0,0,0)") 
+                            
         return fig.to_html()
         
     def boxPlotEstandarizado(self):
-        fig = px.box(self.dashboard.estandarizacion)
+        fig = px.box(x=self.dashboard.estandarizacion, title="Box Plot Estandarizado")
         fig.update_layout(paper_bgcolor="rgba(0,0,0,0)", 
                             font=dict(
                                         family="Courier New, monospace",
                                         size=18,
-                                        color="White"
+                                        
                                 ))
         return fig.to_html()
-graphic = Graphics("Jorge Bolivar")
+    def tablaDeFrecuencia(self):
+        fig = go.Figure(data=[go.Table(header=dict(values=['valores', 'Frecuencias', 'Frecuencia Relativa', 'Frecuencia Relativa Acumulada', 'Frecuencia Relativa Acumulada Porcentual']),
+                 cells=dict(values=[self.dashboard.vectorDePuntuacionesUnicoValor, self.dashboard.frecuenciaDePuntuaciones, self.dashboard.frecuenciaRelativaDePuntuaciones, self.dashboard.frecuenciaRelativaDePuntuacionesAcumulada, self.dashboard.frecuenciaRelativaDePuntuacionesAcumuladaPorcentual]))
+                     ])
+        fig.update_layout(paper_bgcolor="rgba(0,0,0,0)") 
+                            
+        return fig.to_html()
+    def tablaDeFrecuenciaEstandarizada(self):
+        fig = go.Figure(data=[go.Table(header=dict(values=['Valores Estandarizados']),
+                 cells=dict(values=[self.dashboard.estandarizacion]))
+                     ])
+        fig.update_layout(paper_bgcolor="rgba(0,0,0,0)") 
+                            
+        return fig.to_html()

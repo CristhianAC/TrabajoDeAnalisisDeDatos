@@ -1,4 +1,4 @@
-import DictCreator
+from . import DictCreator
 from statistics import mean, median, mode
 from numpy import var
 import numpy as np
@@ -15,9 +15,14 @@ class DashBoard:
         self.posiciones = [i for i in range(len(self.Dict['Nombre del encuestador:'])) if self.Dict['Nombre del encuestador:'][i] == self.NombreDelEncuestador]
         self.vectorDePuntuaciones = [self.Dict['Puntuación'][i] for i in self.posiciones]
         self.vectorDePuntuaciones.sort()
+        self.vectorDePuntuacionesUnicoValor = list(set(self.vectorDePuntuaciones))
+        self.frecuenciaDePuntuaciones = [self.vectorDePuntuaciones.count(i) for i in self.vectorDePuntuacionesUnicoValor]
+        self.frecuenciaRelativaDePuntuaciones = [self.frecuenciaDePuntuaciones[i]/len(self.vectorDePuntuaciones) for i in range(len(self.frecuenciaDePuntuaciones))]
+        self.frecuenciaRelativaDePuntuacionesAcumulada = [round(sum(self.frecuenciaRelativaDePuntuaciones[:i+1]),2)for i in range(len(self.frecuenciaRelativaDePuntuaciones))]
+        self.frecuenciaRelativaDePuntuacionesAcumuladaPorcentual = [self.frecuenciaRelativaDePuntuacionesAcumulada[i]*100 for i in range(len(self.frecuenciaRelativaDePuntuacionesAcumulada))]
         self.casillasClases = [i for i in range(1,round(self.nClase(self.vectorDePuntuaciones)))]
         self.limiteInf = min(self.vectorDePuntuaciones)
-        self.limiteSup = self.limiteInf + self.amplitud(self.vectorDePuntuaciones)-self.precision
+        self.limiteSup = round(self.limiteInf + self.amplitud(self.vectorDePuntuaciones)-self.precision,2)
         self.limites = [[self.limiteInf, self.limiteSup]]
         for i in range (len(self.casillasClases)):
             self.limites.append([round(self.limites[len(self.limites)-1][0] + self.amplitud(self.vectorDePuntuaciones),2) if i % 2 == 0 else round(self.limites[len(self.limites)-1][1] + self.amplitud(self.vectorDePuntuaciones),2) for i in range (2)])

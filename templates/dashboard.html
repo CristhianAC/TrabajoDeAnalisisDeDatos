@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang=es>
+
+<head>
+    <meta charset="UST-8">
+    <meta name="viewport" content="width=devide-width, initial">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Eduación Sexual | Analisis de Datos</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@200;300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/estilos.css' %}">
+</head>
+
+<body class="dashboard">
+
+    <a href="/" class="trasparent">Back to menu</a>
+
+    <section class="container">
+        <div class="org">
+            <h1 class="subtitle">DashBoard</h1>
+            <div class="integrante">
+
+                <h2 class="subtitle">Cristhian Agamez</h2>
+
+                <div class="item">
+                    {{ tablaFrecuenciaCris|safe }}
+                </div>
+
+                <div class="item">
+                    {{ TablaCris|safe }}
+                </div>
+                <div class="item">
+                    {{ tablaFrecuenciaEstandarCris|safe }}
+                </div>
+
+
+
+                <div class="Graficas">
+                    <div class="item">
+                        {{ HistoCris|safe }}
+                    </div>
+                    <div class="item">
+                        {{ PoligonoCris|safe }}}
+                    </div>
+                    <div class="item">
+                        {{ OjivaCris|safe }}
+                    </div>
+                    <div class="item">
+                        {{ BoxPlotCris|safe }}
+                    </div>
+                    <div class="item">
+                        {{ BoxPlotAgrupadoCris|safe }}
+                    </div>
+                    <div class="item">
+                        {{ BoxPlotEstandarCris|safe }}
+                    </div>
+                </div>
+
+            </div>
+            <div class="integrante">
+                <h2 class="subtitle">Jorge Bolivar</h2>
+                <div class="item">
+                    {{ tablaFrecuenciaJorge|safe }}
+                </div>
+
+                <div class="item">
+                    {{ TablaJorge|safe }}
+                </div>
+                <div class="item">
+                    {{ tablaFrecuenciaEstandarJorge|safe }}
+                </div>
+
+
+
+                <div class="Graficas">
+                    <div class="item">
+                        {{ HistoJorge|safe }}
+                    </div>
+                    <div class="item">
+                        {{ PoligonoJorge|safe }}}
+                    </div>
+                    <div class="item">
+                        {{ OjivaJorge|safe }}
+                    </div>
+                    <div class="item">
+                        {{ BoxPlotJorge|safe }}
+                    </div>
+                    <div class="item">
+                        {{ BoxPlotAgrupadoJorge|safe }}
+                    </div>
+                    <div class="item">
+                        {{ BoxPlotEstandarJorge|safe }}
+                    </div>
+                </div>
+            </div>
+            <div class="integrante">
+                <h2 class="subtitle">Jesus De La Cruz</h2>
+                <div class="item">
+                    {{ tablaFrecuenciaJesus|safe }}
+                </div>
+
+                <div class="item">
+                    {{ TablaJesus|safe }}
+                </div>
+                <div class="item">
+                    {{ tablaFrecuenciaEstandarJesus|safe }}
+                </div>
+
+
+
+                <div class="Graficas">
+                    <div class="item">
+                        {{ HistoJesus|safe }}
+                    </div>
+                    <div class="item">
+                        {{ PoligonoJesus|safe }}}
+                    </div>
+                    <div class="item">
+                        {{ OjivaJesus|safe }}
+                    </div>
+                    <div class="item">
+                        {{ BoxPlotJesus|safe }}
+                    </div>
+                    <div class="item">
+                        {{ BoxPlotAgrupadoJesus|safe }}
+                    </div>
+                    <div class="item">
+                        {{ BoxPlotEstandarJesus|safe }}
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+        </div>
+
+    </section>
+</body>
+
+
+</html>

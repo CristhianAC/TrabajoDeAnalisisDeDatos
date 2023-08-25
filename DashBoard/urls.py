@@ -3,5 +3,5 @@ from DashBoard import views
 
 urlpatterns = [
     path('', views.index),
-    #path('DashBoard', views.proyect),
+    path('DashBoard', views.DashBoard),
 ]
