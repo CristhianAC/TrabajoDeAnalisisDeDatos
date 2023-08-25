@@ -17,15 +17,17 @@ class DashBoard:
         self.vectorDePuntuaciones.sort()
         self.casillasClases = [i for i in range(1,round(self.nClase(self.vectorDePuntuaciones)))]
         self.limiteInf = min(self.vectorDePuntuaciones)
-        self.limiteSup = self.limiteInf + self.amplitud(self.vectorDePuntuaciones)-1
+        self.limiteSup = self.limiteInf + self.amplitud(self.vectorDePuntuaciones)
         self.limites = [[self.limiteInf, self.limiteSup]]
         for i in range (len(self.casillasClases)):
-            self.limites.append([(self.limites[len(self.limites)-1][0]+self.amplitud(self.vectorDePuntuaciones)) if i % 2 == 0 else self.limites[len(self.limites)-1][1]+self.amplitud(self.vectorDePuntuaciones) for i in range (2)])
+            self.limites.append([(self.limites[len(self.limites)-1][0] + self.amplitud(self.vectorDePuntuaciones)) if i % 2 == 0 else self.limites[len(self.limites)-1][1] + self.amplitud(self.vectorDePuntuaciones) for i in range (2)])
         self.frecuenciaAgrupada = [0 for i in range(len(self.limites))]
+        
         for i in range(len(self.vectorDePuntuaciones)):
             for j in range(len(self.limites)):
-                if self.vectorDePuntuaciones[i] >= self.limites[j][0] and self.vectorDePuntuaciones[i] <= self.limites[j][1]:
+                if self.vectorDePuntuaciones[i] >= self.limites[j][0] and self.vectorDePuntuaciones[i] < self.limites[j][1]:
                     self.frecuenciaAgrupada[j] += 1
+                    
         self.frecuenciaRelativa = [self.frecuenciaAgrupada[i]/len(self.vectorDePuntuaciones) for i in range(len(self.frecuenciaAgrupada))]
         self.frecuenciaRelativaAcumulada = [sum(self.frecuenciaRelativa[:i+1])for i in range(len(self.frecuenciaRelativa))]
         self.frecuenciaRelativaAcumuladaPorcentual = [self.frecuenciaRelativaAcumulada[i]*100 for i in range(len(self.frecuenciaRelativaAcumulada))]
@@ -41,8 +43,10 @@ class DashBoard:
         
     def media(self, vectorAlRealizar):
         return sum(vectorAlRealizar)/len(vectorAlRealizar)
+    
     def mediaAgrup(self):
         return sum([(self.marcasDeClase[i]*self.frecuenciaAgrupada[i]) for i in range(len(self.marcasDeClase))])/sum(self.frecuenciaAgrupada)
+    
     def mediana(self, vectorAlRealizar):
         
         if len(vectorAlRealizar)%2 == 0:
@@ -127,7 +131,8 @@ class DashBoard:
         return 3.3*np.log10(len(vectorAlRealizar)) + 1
     
     def amplitud(self, vectorAlRealizar):
-        return round(self.rango(vectorAlRealizar)/self.nClase(vectorAlRealizar))
+        return self.rango(vectorAlRealizar)/self.nClase(vectorAlRealizar)
+    
     def amplitudModa(self, vectorAlRealizar):
         return self.rango(vectorAlRealizar)/self.nClase(vectorAlRealizar) 
     
