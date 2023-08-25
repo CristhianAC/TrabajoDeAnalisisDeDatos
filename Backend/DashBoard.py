@@ -9,7 +9,7 @@ import pandas as pd
 class DashBoard:
     def __init__(self, NombreDelEncuestador) -> None:
         self.Dict = DictCreator.DictCreator().dict
-        self.precision = 1
+        self.precision = 0.1
         
         self.NombreDelEncuestador = NombreDelEncuestador
         self.posiciones = [i for i in range(len(self.Dict['Nombre del encuestador:'])) if self.Dict['Nombre del encuestador:'][i] == self.NombreDelEncuestador]
@@ -17,7 +17,7 @@ class DashBoard:
         self.vectorDePuntuaciones.sort()
         self.casillasClases = [i for i in range(1,round(self.nClase(self.vectorDePuntuaciones)))]
         self.limiteInf = min(self.vectorDePuntuaciones)
-        self.limiteSup = self.limiteInf + self.amplitud(self.vectorDePuntuaciones)
+        self.limiteSup = self.limiteInf + self.amplitud(self.vectorDePuntuaciones)-self.precision
         self.limites = [[self.limiteInf, self.limiteSup]]
         for i in range (len(self.casillasClases)):
             self.limites.append([(self.limites[len(self.limites)-1][0] + self.amplitud(self.vectorDePuntuaciones)) if i % 2 == 0 else self.limites[len(self.limites)-1][1] + self.amplitud(self.vectorDePuntuaciones) for i in range (2)])
@@ -25,7 +25,7 @@ class DashBoard:
         
         for i in range(len(self.vectorDePuntuaciones)):
             for j in range(len(self.limites)):
-                if self.vectorDePuntuaciones[i] >= self.limites[j][0] and self.vectorDePuntuaciones[i] < self.limites[j][1]:
+                if self.vectorDePuntuaciones[i] >= self.limites[j][0] and self.vectorDePuntuaciones[i] <= self.limites[j][1]:
                     self.frecuenciaAgrupada[j] += 1
                     
         self.frecuenciaRelativa = [self.frecuenciaAgrupada[i]/len(self.vectorDePuntuaciones) for i in range(len(self.frecuenciaAgrupada))]
@@ -152,7 +152,7 @@ print(dashboard.moda(dashboard.vectorDePuntuaciones))
 print("\n ")
 print("Medidas de variabilidad o dispersión")
 print(dashboard.rango(dashboard.vectorDePuntuaciones))
-print(dashboard.rangoIntercuartilico(dashboard.vectorDePuntuaciones))
+print(dashboard.rangoIntercuartilico())
 print(dashboard.varianza())
 print(dashboard.desviacionEstandar())
 print(dashboard.coefDeVariacion())
@@ -163,8 +163,8 @@ print(dashboard.coefDeApuntamiento(dashboard.vectorDePuntuaciones))
 print("\n ")
 print("\n ")
 
-
-
+"""
+"""
 print("Datos agrupados")
 print(dashboard.limites)
 print(dashboard.frecuenciaAgrupada)
@@ -172,20 +172,23 @@ print(dashboard.media(dashboard.frecuenciaAgrupada))
 print(dashboard.mediana(dashboard.vectorDePuntuaciones))
 print(dashboard.modaAgrup())
 print(dashboard.rango(dashboard.frecuenciaAgrupada))
-print(dashboard.rangoIntercuartilico(dashboard.frecuenciaAgrupada))
 print(var(dashboard.vectorDePuntuaciones))
 print(dashboard.desviacionEstandar())
 print(dashboard.coefDeVariacion())
 print("\n ")
 """
+print(dashboard.rangoIntercuartilicoAgrup())
+print(dashboard.vectorDePuntuaciones)
+print(dashboard.Posquartiles)
 
 
+"""
 print(dashboard.limites)
 print(dashboard.frecuenciaAgrupada)
 print(dashboard.frecuenciaAgrupadaAcumulada)
 print(dashboard.amplitudModa(dashboard.vectorDePuntuaciones))
 
-
+"""
 
 
 #print(dashboard.frecuenciaRelativaAcumuladaPorcentual)
