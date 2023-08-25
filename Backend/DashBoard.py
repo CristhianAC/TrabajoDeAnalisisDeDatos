@@ -20,7 +20,7 @@ class DashBoard:
         self.limiteSup = self.limiteInf + self.amplitud(self.vectorDePuntuaciones)-self.precision
         self.limites = [[self.limiteInf, self.limiteSup]]
         for i in range (len(self.casillasClases)):
-            self.limites.append([(self.limites[len(self.limites)-1][0] + self.amplitud(self.vectorDePuntuaciones)) if i % 2 == 0 else self.limites[len(self.limites)-1][1] + self.amplitud(self.vectorDePuntuaciones) for i in range (2)])
+            self.limites.append([round(self.limites[len(self.limites)-1][0] + self.amplitud(self.vectorDePuntuaciones),2) if i % 2 == 0 else round(self.limites[len(self.limites)-1][1] + self.amplitud(self.vectorDePuntuaciones),2) for i in range (2)])
         self.frecuenciaAgrupada = [0 for i in range(len(self.limites))]
         
         for i in range(len(self.vectorDePuntuaciones)):
@@ -37,9 +37,22 @@ class DashBoard:
         self.marcaDeClasePorFrecuencia = [self.marcasDeClase[i]*self.frecuenciaAgrupada[i] for i in range(len(self.marcasDeClase))]
         self.fimixbarra2 = [self.frecuenciaAgrupada[i]*(self.marcasDeClase[i]-self.media(self.frecuenciaAgrupada))**2 for i in range(len(self.marcasDeClase))]
         self.frecuenciaAgrupadaAcumulada = [sum(self.frecuenciaAgrupada[:i+1])for i in range(len(self.frecuenciaAgrupada))]
+        
         self.quartiles = []
         self.Posquartiles = []
         self.rangoIntercuartilico()
+        
+        
+        self.estandarizacion = [(self.vectorDePuntuaciones[i] - self.media(self.vectorDePuntuaciones))/self.desviacionEstandar() for i in range(len(self.vectorDePuntuaciones))]
+        self.mediaEstandarizacion = 0
+        self.medianaEstandarizacion = self.mediana(self.estandarizacion)
+        self.rangoEstandarizacion = self.rango(self.estandarizacion)
+        self.rangoIntercuartilicoEstandarizacion = self.quartiles[2] - self.quartiles[0]
+        self.coefDeAsimetriaEstandarizacion =  self.coefDeAsimetria(self.estandarizacion)
+        self.coefDeApuntamientoEstandarizacion = self.coefDeApuntamiento(self.estandarizacion)
+        
+        
+        
         
     def media(self, vectorAlRealizar):
         return sum(vectorAlRealizar)/len(vectorAlRealizar)
@@ -176,10 +189,12 @@ print(var(dashboard.vectorDePuntuaciones))
 print(dashboard.desviacionEstandar())
 print(dashboard.coefDeVariacion())
 print("\n ")
-"""
 print(dashboard.rangoIntercuartilicoAgrup())
 print(dashboard.vectorDePuntuaciones)
 print(dashboard.Posquartiles)
+
+"""
+
 
 
 """

@@ -2,6 +2,9 @@ from DashBoard import DashBoard
 import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
+
+
+
 class Graphics:
     def __init__(self, nombreDelEncuestador) -> None:
         self.dashboard = DashBoard(nombreDelEncuestador)
@@ -13,36 +16,79 @@ class Graphics:
             "Agrupacion": self.vector1,
             "Frecuencias": self.vector2
         }
-        self.histograma(datos)
-        self.poligonoDeFrecuencia(datos)
-        self.Ojiva()
-        self.boxPlot()
-        self.tablaFrecuenciaAgrupada()
+        self.histo = self.histograma(datos)
+        self.poligoFre = self.poligonoDeFrecuencia(datos)
+        self.Ojiva = self.Ojiva()
+        self.boxP = self.boxPlot()
+        self.boxA = self.boxPlotAgrupado()
+        self.tabla = self.tablaFrecuenciaAgrupada()
     def histograma(self, datos):
         
         
         df = pd.DataFrame(datos)
         fig = px.bar(df, y="Frecuencias", category_orders={"Agrupacion":self.vector1}, x="Agrupacion", color="Agrupacion", color_discrete_sequence=px.colors.qualitative.Plotly)
+        return fig.to_html()
         
         
     def poligonoDeFrecuencia(self,datos):
-        
         df = pd.DataFrame(datos)
-        fig = px.line(df, y="Frecuencias",x=self.vector1,markers=True)
+        trace1 = go.Bar(x=df.Agrupacion, y=df.Frecuencias, name='Frecuencias', marker_color='rgb(102, 185, 191)')
+        trace2 = go.Scatter(x=df.Agrupacion, y=df.Frecuencias, mode='lines', name='Frecuencias', marker_color = 'rgb(244, 167, 185)')  # Cambiado a Scatter para crear una línea
         
-        
+        data = [trace1, trace2]
+
+        # Configurar el diseño (layout)
+        layout = go.Layout(
+            plot_bgcolor='rgba(0,0,0,0)',  # Color de fondo transparente
+            paper_bgcolor='rgba(0,0,0,0)'  # Color del papel (margen) transparente
+        )
+
+        fig = go.Figure(data=data, layout=layout)
+        return fig.to_html()
     def Ojiva(self):
         
         fig = px.line(x=self.vector1, y=self.dashboard.frecuenciaAgrupadaAcumulada,markers=True)
+        fig.update_layout(paper_bgcolor="rgba(0,0,0,0)", 
+                            font=dict(
+                                        family="Courier New, monospace",
+                                        size=18,
+                                        color="White"
+                                ))
+        return fig.to_html()
         
     def boxPlot(self):
         fig = px.box(self.dashboard.vectorDePuntuaciones)
-        print(self.dashboard.amplitud(self.dashboard.vectorDePuntuaciones))
+        fig.update_layout(paper_bgcolor="rgba(0,0,0,0)", 
+                            font=dict(
+                                        family="Courier New, monospace",
+                                        size=18,
+                                        color="White"
+                                ))
+        return fig.to_html()
         
-        
+    def boxPlotAgrupado(self):
+        fig = px.box(self.dashboard.frecuenciaAgrupada)
+        fig.update_layout(paper_bgcolor="rgba(0,0,0,0)", 
+                            font=dict(
+                                        family="Courier New, monospace",
+                                        size=18,
+                                        color="White"
+                                ))
+        return fig.to_html()
+            
     def tablaFrecuenciaAgrupada(self):
         fig = go.Figure(data=[go.Table(header=dict(values=['Intervalos', 'Frecuencias']),
                  cells=dict(values=[self.vector1, self.vector2]))
                      ])
-        fig.show()
+        return fig.to_html()
+        
+    def boxPlotEstandarizado(self):
+        fig = px.box(self.dashboard.estandarizacion)
+        fig.update_layout(paper_bgcolor="rgba(0,0,0,0)", 
+                            font=dict(
+                                        family="Courier New, monospace",
+                                        size=18,
+                                        color="White"
+                                ))
+        return fig.to_html()
 graphic = Graphics("Jorge Bolivar")
