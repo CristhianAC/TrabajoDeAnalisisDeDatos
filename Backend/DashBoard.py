@@ -10,6 +10,7 @@ class DashBoard:
     def __init__(self, NombreDelEncuestador) -> None:
         self.Dict = DictCreator.DictCreator().dict
         self.precision = 1
+        
         self.NombreDelEncuestador = NombreDelEncuestador
         self.posiciones = [i for i in range(len(self.Dict['Nombre del encuestador:'])) if self.Dict['Nombre del encuestador:'][i] == self.NombreDelEncuestador]
         self.vectorDePuntuaciones = [self.Dict['Puntuación'][i] for i in self.posiciones]
@@ -33,7 +34,10 @@ class DashBoard:
         self.marcasDeClase = [(self.fronteraInferior[i]+self.fronteraSuperior[i])/2 for i in range(len(self.fronteraInferior))]
         self.marcaDeClasePorFrecuencia = [self.marcasDeClase[i]*self.frecuenciaAgrupada[i] for i in range(len(self.marcasDeClase))]
         self.fimixbarra2 = [self.frecuenciaAgrupada[i]*(self.marcasDeClase[i]-self.media(self.frecuenciaAgrupada))**2 for i in range(len(self.marcasDeClase))]
-        
+        self.frecuenciaAgrupadaAcumulada = [sum(self.frecuenciaAgrupada[:i+1])for i in range(len(self.frecuenciaAgrupada))]
+        self.quartiles = []
+        self.Posquartiles = []
+        self.rangoIntercuartilico()
         
     def media(self, vectorAlRealizar):
         return sum(vectorAlRealizar)/len(vectorAlRealizar)
@@ -67,9 +71,29 @@ class DashBoard:
         return max(vectorAlRealizar) - min(vectorAlRealizar)
     
     
-    def rangoIntercuartilico(self, vectorAlRealizar):
-        quartiles = [vectorAlRealizar[len(vectorAlRealizar)//4], vectorAlRealizar[len(vectorAlRealizar)//2], vectorAlRealizar[len(vectorAlRealizar)*3//4]]
-        return quartiles[len(quartiles)-1] - quartiles[0]
+    def rangoIntercuartilico(self):
+       
+        self.Posquartiles = [len(self.vectorDePuntuaciones)//4, len(self.vectorDePuntuaciones)//2, (len(self.vectorDePuntuaciones)//4)*3]
+        self.quartiles = [self.vectorDePuntuaciones[self.Posquartiles[0]], self.vectorDePuntuaciones[self.Posquartiles[1]], self.vectorDePuntuaciones[self.Posquartiles[2]]]
+        return self.quartiles[len(self.quartiles)-1] - self.quartiles[0]
+    
+    
+    def rangoIntercuartilicoAgrup(self):
+        
+        posicionesToRango = []
+        for i in range (len(self.Posquartiles)):
+            for j in range(len(self.frecuenciaAgrupadaAcumulada)):
+                if self.Posquartiles[i] <= self.frecuenciaAgrupadaAcumulada[j]:
+                    posicionesToRango.append(j)
+                    break
+        liPos1 = self.limites[posicionesToRango[0]][0]
+        lipos3 = self.limites[posicionesToRango[len(posicionesToRango)-1]][0]
+        pos1 = self.Posquartiles[0]
+        pos3 = self.Posquartiles[len(self.Posquartiles)-1]
+        resultado = []
+        resultado.append(liPos1 + ((pos1-self.frecuenciaAgrupadaAcumulada[posicionesToRango[0]-1])/(self.frecuenciaAgrupada[posicionesToRango[0]]))*self.amplitudModa(self.vectorDePuntuaciones))
+        resultado.append(liPos1 + ((pos3-self.frecuenciaAgrupadaAcumulada[posicionesToRango[len(posicionesToRango)-1]-1])/(self.frecuenciaAgrupada[posicionesToRango[len(posicionesToRango)-1]]))*self.amplitudModa(self.vectorDePuntuaciones))
+        return resultado[1] - resultado[0]
     
     def varianza(self):
         return var(self.vectorDePuntuaciones)
@@ -113,6 +137,7 @@ class DashBoard:
 
 
 dashboard = DashBoard('Jorge Bolivar')
+"""
 print("Datos NO agrupados")
 print("Medidas de Centralización")
 print(dashboard.media(dashboard.vectorDePuntuaciones))
@@ -147,6 +172,13 @@ print(var(dashboard.vectorDePuntuaciones))
 print(dashboard.desviacionEstandar())
 print(dashboard.coefDeVariacion())
 print("\n ")
+"""
+
+
+print(dashboard.limites)
+print(dashboard.frecuenciaAgrupada)
+print(dashboard.frecuenciaAgrupadaAcumulada)
+print(dashboard.amplitudModa(dashboard.vectorDePuntuaciones))
 
 
 
