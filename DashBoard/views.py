@@ -7,6 +7,7 @@ def DashBoard(request):
     CristhianAgamez = Graphics("Cristhian Agamez")
     JorgeBolivar = Graphics("Jorge Bolivar")
     JesusDeLaCruz = Graphics("Jesús De la Cruz")
+    
     context = {
         "HistoCris" : CristhianAgamez.histo,
         "HistoJorge" : JorgeBolivar.histo,
@@ -35,6 +36,11 @@ def DashBoard(request):
         "tablaFrecuenciaEstandarCris" : CristhianAgamez.tablaDeFrecuenciaEstandarizada,
         "tablaFrecuenciaEstandarJorge" : JorgeBolivar.tablaDeFrecuenciaEstandarizada,
         "tablaFrecuenciaEstandarJesus" : JesusDeLaCruz.tablaDeFrecuenciaEstandarizada,
+        "tablaFrecuenciaGeneral" : CristhianAgamez.tablaFrecuenciaGeneral,
+        "tablaFrecuenciaAgrupadaGeneral" : CristhianAgamez.tablaFrecuenciaAgrupadaGeneral,
+        
+        "BoxPlotGeneral" : CristhianAgamez.boxPlotGeneral,
+        "BoxPlotAgrupadoGeneral" : CristhianAgamez.boxPlotAgrupadoGeneral,
     }
     
     return render(request, "dashboard.html", context)

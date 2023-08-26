@@ -112,21 +112,21 @@ class Graphics:
         return fig.to_html()
     def tablaFrecuenciaGeneral(self):
         fig = go.Figure(data=[go.Table(header=dict(values=['Intervalos', 'Frecuencias', 'Frecuencia Relativa', 'Frecuencia Relativa Acumulada', 'Frecuencia Relativa Acumulada Porcentual']),
-                 cells=dict(values=[self.dashboardGeneral.vectorDePuntuaciones, self.dashboardGeneral.frecuenciaDePuntuaciones, self.dashboardGeneral.frecuenciaRelativa, self.dashboardGeneral.frecuenciaRelativaAcumulada, self.dashboardGeneral.frecuenciaRelativaAcumuladaPorcentual]))
+                 cells=dict(values=[self.dashboardGeneral.vectorDePuntuacionesUnicoValor, self.dashboardGeneral.frecuenciaDePuntuaciones, self.dashboardGeneral.frecuenciaRelativaDePuntuaciones, self.dashboardGeneral.frecuenciaRelativaDePuntuacionesAcumulada, self.dashboardGeneral.frecuenciaRelativaDePuntuacionesAcumuladaPorcentual]))
                      ])
         fig.update_layout(paper_bgcolor="rgba(0,0,0,0)") 
                             
         return fig.to_html()
     def tablaFrecuenciaAgrupadaGeneral(self):
         fig = go.Figure(data=[go.Table(header=dict(values=['Intervalos', 'Frecuencias', 'Frecuencia Relativa', 'Frecuencia Relativa Acumulada', 'Frecuencia Relativa Acumulada Porcentual']),
-                 cells=dict(values=[self.dashboardGeneral.limites, self.dashboardGeneral.frecuenciaAgrupada, self.dashboardGeneral.frecuenciaRelativaAgrupada, self.dashboardGeneral.frecuenciaRelativaAcumuladaAgrupada, self.dashboardGeneral.frecuenciaRelativaAcumuladaPorcentualAgrupada]))
+                 cells=dict(values=[self.dashboardGeneral.limites, self.dashboardGeneral.frecuenciaAgrupada, self.dashboardGeneral.frecuenciaRelativaAcumulada, self.dashboardGeneral.frecuenciaRelativaAcumulada, self.dashboardGeneral.frecuenciaRelativaAcumuladaPorcentual]))
                      ])
         fig.update_layout(paper_bgcolor="rgba(0,0,0,0)") 
                             
         return fig.to_html()
-    def OjivaGeneral(self):
-        
-        fig = px.line(x=self.dashboardGeneral.vectorDePuntuaciones, y=self.dashboardGeneral.frecuenciaAcumulada,markers=True, title="Ojiva")
+    
+    def boxPlotGeneral(self):
+        fig = px.box(x=self.dashboardGeneral.vectorDePuntuaciones, title="Caja y Bigote con datos individuales")
         fig.update_layout(paper_bgcolor="rgba(0,0,0,0)", 
                             font=dict(
                                         family="Courier New, monospace",
@@ -134,3 +134,13 @@ class Graphics:
                                         
                                 ))
         return fig.to_html()
+    def boxPlotAgrupadoGeneral(self):
+        fig = px.box(x=self.dashboardGeneral.frecuenciaAgrupada, title="Caja y Bigote Con conjunto de datos agrupados")
+        fig.update_layout(paper_bgcolor="rgba(0,0,0,0)", 
+                            font=dict(
+                                        family="Courier New, monospace",
+                                        size=18,
+                                        
+                                ))
+        return fig.to_html()
+    
