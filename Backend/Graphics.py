@@ -27,7 +27,7 @@ class Graphics:
         
         
         df = pd.DataFrame(datos)
-        fig = px.bar(df, y="Frecuencias", category_orders={"Agrupacion":self.vector1}, x="Agrupacion", color="Agrupacion", color_discrete_sequence=px.colors.qualitative.Plotly)
+        fig = px.bar(df, y="Frecuencias", category_orders={"Agrupacion":self.vector1}, x="Agrupacion", color="Agrupacion", color_discrete_sequence=px.colors.qualitative.Plotly, title="Histograma")
         fig.update_layout(paper_bgcolor="rgba(0,0,0,0)")
         return fig.to_html()
         
@@ -59,7 +59,7 @@ class Graphics:
         return fig.to_html()
         
     def boxPlot(self):
-        fig = px.box(x=self.dashboard.vectorDePuntuaciones, title="Caja y Bigote base")
+        fig = px.box(x=self.dashboard.vectorDePuntuaciones, title="Caja y Bigote con datos individuales")
         fig.update_layout(paper_bgcolor="rgba(0,0,0,0)", 
                             font=dict(
                                         family="Courier New, monospace",
@@ -69,7 +69,7 @@ class Graphics:
         return fig.to_html()
         
     def boxPlotAgrupado(self):
-        fig = px.box(x=self.dashboard.frecuenciaAgrupada, title="Box Plot Agrupado")
+        fig = px.box(x=self.dashboard.frecuenciaAgrupada, title="Caja y Bigote Con conjunto de datos agrupados")
         fig.update_layout(paper_bgcolor="rgba(0,0,0,0)", 
                             font=dict(
                                         family="Courier New, monospace",
@@ -87,7 +87,7 @@ class Graphics:
         return fig.to_html()
         
     def boxPlotEstandarizado(self):
-        fig = px.box(x=self.dashboard.estandarizacion, title="Box Plot Estandarizado")
+        fig = px.box(x=self.dashboard.estandarizacion, title="Caja y bigote Estandarizado")
         fig.update_layout(paper_bgcolor="rgba(0,0,0,0)", 
                             font=dict(
                                         family="Courier New, monospace",
