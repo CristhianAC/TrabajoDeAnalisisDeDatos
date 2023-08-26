@@ -128,13 +128,13 @@ class DashBoard:
     
     
     def desviacionEstandarAgrup(self):
-        return self.varianza()**(1/2)  
+        return self.varianzaAgrup()**(1/2)  
     
     def desviacionEstandar(self):
         return var(self.vectorDePuntuaciones)**(1/2)
     
     def coefDeVariacionAgrup(self):
-        variacion = self.desviacionEstandar()/self.mediaAgrup()     
+        variacion = self.desviacionEstandarAgrup()/self.mediaAgrup()     
         return variacion
     
     def coefDeVariacion(self):
@@ -275,17 +275,17 @@ class DashBoardGeneral:
         return var(self.vectorDePuntuaciones)
     
     def varianzaAgrup(self):
-        return sum(self.fimixbarra2)/(sum(self.frecuenciaAgrupada)-1) 
+        return sum(self.fimixbarra2)/(sum(self.frecuenciaAgrupada)) 
     
     
     def desviacionEstandarAgrup(self):
-        return self.varianza()**(1/2)  
+        return self.varianzaAgrup()**(1/2)  
     
     def desviacionEstandar(self):
         return var(self.vectorDePuntuaciones)**(1/2)
     
     def coefDeVariacionAgrup(self):
-        variacion = self.desviacionEstandar()/self.mediaAgrup()     
+        variacion = self.desviacionEstandarAgrup()/self.mediaAgrup()     
         return variacion
     
     def coefDeVariacion(self):

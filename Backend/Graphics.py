@@ -1,4 +1,4 @@
-from .DashBoard import DashBoard
+from .DashBoard import DashBoard, DashBoardGeneral
 import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
@@ -8,6 +8,7 @@ import plotly.graph_objects as go
 class Graphics:
     def __init__(self, nombreDelEncuestador) -> None:
         self.dashboard = DashBoard(nombreDelEncuestador)
+        self.dashboardGeneral = DashBoardGeneral()
         self.vector1 = self.dashboard.limites.copy()
         self.vector2 = self.dashboard.frecuenciaAgrupada.copy()
         for i in range(len(self.vector1)):
@@ -108,4 +109,28 @@ class Graphics:
                      ])
         fig.update_layout(paper_bgcolor="rgba(0,0,0,0)") 
                             
+        return fig.to_html()
+    def tablaFrecuenciaGeneral(self):
+        fig = go.Figure(data=[go.Table(header=dict(values=['Intervalos', 'Frecuencias', 'Frecuencia Relativa', 'Frecuencia Relativa Acumulada', 'Frecuencia Relativa Acumulada Porcentual']),
+                 cells=dict(values=[self.dashboardGeneral.vectorDePuntuaciones, self.dashboardGeneral.frecuenciaDePuntuaciones, self.dashboardGeneral.frecuenciaRelativa, self.dashboardGeneral.frecuenciaRelativaAcumulada, self.dashboardGeneral.frecuenciaRelativaAcumuladaPorcentual]))
+                     ])
+        fig.update_layout(paper_bgcolor="rgba(0,0,0,0)") 
+                            
+        return fig.to_html()
+    def tablaFrecuenciaAgrupadaGeneral(self):
+        fig = go.Figure(data=[go.Table(header=dict(values=['Intervalos', 'Frecuencias', 'Frecuencia Relativa', 'Frecuencia Relativa Acumulada', 'Frecuencia Relativa Acumulada Porcentual']),
+                 cells=dict(values=[self.dashboardGeneral.limites, self.dashboardGeneral.frecuenciaAgrupada, self.dashboardGeneral.frecuenciaRelativaAgrupada, self.dashboardGeneral.frecuenciaRelativaAcumuladaAgrupada, self.dashboardGeneral.frecuenciaRelativaAcumuladaPorcentualAgrupada]))
+                     ])
+        fig.update_layout(paper_bgcolor="rgba(0,0,0,0)") 
+                            
+        return fig.to_html()
+    def OjivaGeneral(self):
+        
+        fig = px.line(x=self.dashboardGeneral.vectorDePuntuaciones, y=self.dashboardGeneral.frecuenciaAcumulada,markers=True, title="Ojiva")
+        fig.update_layout(paper_bgcolor="rgba(0,0,0,0)", 
+                            font=dict(
+                                        family="Courier New, monospace",
+                                        size=18,
+                                        
+                                ))
         return fig.to_html()
